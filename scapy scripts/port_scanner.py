@@ -1,4 +1,4 @@
-import nmap
+import nmap3
 import re
 
 
@@ -18,16 +18,24 @@ while True:
         print(f"{user_input_ip_addr} is a valid ip address")
         break
 
+"""
 while True:
     port_range = input("Please enter the range of ports you want to scan ie. 20-22: ")
-    check_port_range = port_rane_pattern.search(port_range.replace(" ",""))
+    check_port_range = port_range_pattern.search(port_range.replace(" ",""))
     if check_port_range:
         port_min = int(check_port_range.group(1))
         port_max = int(check_port_range.group(2))
         break
+"""
 
-nm = nmap.PortScanner()
+nmap = nmap3.Nmap()
 
+results = nmap.scan_top_ports(user_input_ip_addr)
+port_results = results[user_input_ip_addr]["ports"]
+for item in port_results:
+    print(item["portid"], item["state"])
+    
+"""
 for port in range(port_min, port_max + 1):
     try:
         result = nm.scan(user_input_ip_addr, str(port))
@@ -35,3 +43,4 @@ for port in range(port_min, port_max + 1):
         print(f"Port {port} is {port_status}")
     except:
         print(f"Cannot scan port {port}.")
+"""
