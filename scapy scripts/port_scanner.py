@@ -34,7 +34,9 @@ results = nmap.scan_top_ports(user_input_ip_addr)
 port_results = results[user_input_ip_addr]["ports"]
 for item in port_results:
     print(item["portid"], item["state"])
-    
+    if item["portid"] == "80":
+        print("http is open")
+
 """
 for port in range(port_min, port_max + 1):
     try:
